@@ -5,11 +5,25 @@
 #include <ios>
 #include <iostream>
 #include <rd>
+#include <sys/types.h>
 #include <utility>
 #include <vector>
 
 Board::Board() : board(std::vector<std::vector<int>>(4, std::vector<int>(4))), score(0), top(0)
 {
+    char result[PATH_MAX];
+    ssize_t count = readlink("/proc/self/exe", result, PATH_MAX);
+    exePath = std::string(result, (count > 0) ? count : 0);
+    size_t pos = exePath.find_last_of("\\/");
+    exeDir = exePath.substr(0, pos);
+    int cnt = 0;
+    ssize_t i = 0;
+    for (; i < exePath.size(); ++i)
+        if (exePath[i] == '/')
+            if (++cnt == 3)
+                break;
+    data = exePath.substr(0, i); 
+    data += "/.config/2048.txt";
 }
 
 void print_num(const std::vector<int> &v)
@@ -157,10 +171,10 @@ void Board::printScore()
 
 void Board::read()
 {
-    std::fstream f("/home/ihxnan/.config/2048.txt", std::ios::in);
+    std::fstream f(data, std::ios::in);
     if (!f.is_open())
     {
-        std::fstream f2("/home/ihxnan/.config/2048.txt", std::ios::out);
+        std::fstream f2(data, std::ios::out);
         f2 << 0;
         f2.close();
     }
@@ -172,8 +186,18 @@ void Board::save()
 {
     if (score > top)
     {
-        std::fstream f("/home/ihxnan/.config/2048.txt", std::ios::out);
+        std::fstream f(data, std::ios::out);
         f << score;
         f.close();
     }
+}
+
+    std::string exePath;
+    std::string exeDir;
+    std::string data;
+void Board::test()
+{
+    std::cout << exePath << std::endl << 
+        exeDir << std::endl << 
+        data << std::endl;
 }
