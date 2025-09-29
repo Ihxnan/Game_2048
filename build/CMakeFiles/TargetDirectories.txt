@@ -1,0 +1,3 @@
+/home/ihxnan/WorkSpace/game_2048/build/CMakeFiles/a.out.dir
+/home/ihxnan/WorkSpace/game_2048/build/CMakeFiles/edit_cache.dir
+/home/ihxnan/WorkSpace/game_2048/build/CMakeFiles/rebuild_cache.dir
