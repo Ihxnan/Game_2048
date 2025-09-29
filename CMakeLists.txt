@@ -4,6 +4,6 @@ project(MyProject)
 
 # set(SOURCES main.cpp)
 
-file(GLOB SOURCES "*.cpp")
+file(GLOB SOURCES "src/*.cpp")
 
-add_executable(a.out ${SOURCES})
+add_executable(2048 ${SOURCES})
