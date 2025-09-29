@@ -7,7 +7,6 @@ class Board
     std::vector<std::vector<int>> board;
     long long score;
     long long top;
-    int flag = 0;
 
   public:
     Board();

@@ -157,9 +157,14 @@ void Board::printScore()
 
 void Board::read()
 {
-    std::fstream f("src/data.txt", std::ios::in);
-    if (f >> top)
-        flag = 1;
+    std::fstream f("/home/ihxnan/.config/2048.txt", std::ios::in);
+    if (!f.is_open())
+    {
+        std::fstream f2("/home/ihxnan/.config/2048.txt", std::ios::out);
+        f2 << 0;
+        f2.close();
+    }
+    f >> top;
     f.close();
 }
 
@@ -167,7 +172,7 @@ void Board::save()
 {
     if (score > top)
     {
-        std::fstream f("src/data.txt", std::ios::out);
+        std::fstream f("/home/ihxnan/.config/2048.txt", std::ios::out);
         f << score;
         f.close();
     }
